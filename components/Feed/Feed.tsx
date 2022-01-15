@@ -50,9 +50,9 @@ export default function Feed() {
             <Input />
 
             <div className="">
-                {posts.map(post => (
-                    // <Post key={post.id} id={post.id} post={post.data()} />
-                ))}
+                {/* {posts.map(post => (
+                    <Post key={post.id} id={post.id} post={post.data()} />
+                ))} */}
             </div>
         </div>
     )
