@@ -6,6 +6,7 @@ import Login from '../components/Login';
 import Modal from '../components/Modal/Modal';
 import { modalState } from '../atoms/modalAtom';
 import { useRecoilState } from 'recoil';
+import Widgets from '../components/Widgets/Widgets';
 
 
 export default function Home({ trendingResults, followingResults, providers }: any) {
@@ -33,7 +34,11 @@ export default function Home({ trendingResults, followingResults, providers }: a
                 <Sidebar />
                 <Feed />
                 {session.user.name}
-                {/* Widgets */}
+                
+                <Widgets
+                    trendingResults={trendingResults}
+                    followResults={followingResults}
+                />
 
                 {isOpen && <Modal />}
             </main>
