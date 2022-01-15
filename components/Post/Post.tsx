@@ -32,7 +32,7 @@ import { modalState, postIdState } from "../../atoms/modalAtom";
 import { db } from "../../firebase";
 
 interface PostData {
-    id?: any,
+    id?: string | number,
     post?: any,
     postPage?: any
 }
@@ -149,7 +149,7 @@ function Post({id, post, postPage}: PostData) {
                         )}
                     </div>
 
-                    {profileUID === post?.id ? (
+                    {profileUID === post.id ? (
                         <div
                             className="flex items-center space-x-1 group"
                             onClick={(e) => {
