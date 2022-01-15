@@ -33,7 +33,7 @@ export default function Home({ trendingResults, followingResults, providers }: a
             <main className="bg-black min-h-screen flex max-w-[1500px] mx-auto">
                 <Sidebar />
                 <Feed />
-                {session.user.name}
+                {session?.user?.name}
                 
                 <Widgets
                     trendingResults={trendingResults}

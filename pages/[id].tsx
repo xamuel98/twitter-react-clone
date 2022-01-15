@@ -5,6 +5,8 @@ import {
     orderBy,
     query,
     QueryDocumentSnapshot,
+    DocumentReference,
+    CollectionReference,
     DocumentData
   } from "@firebase/firestore";
 import { getProviders, getSession, useSession } from "next-auth/react";
@@ -34,7 +36,7 @@ function PostPage({ trendingResults, followingResults, providers }: any) {
 
     useEffect(
         () => 
-            onSnapshot(doc(db, "posts", id), (snapshot) => {
+            onSnapshot(doc(db, "posts", id), (snapshot: QueryDocumentSnapshot<any>) =>  {
                 setPost(snapshot.data());
             }),
         [db]
@@ -58,7 +60,7 @@ function PostPage({ trendingResults, followingResults, providers }: any) {
     return (
         <div className="">
             <Head>
-                <title>{post?.username} on Twitter: "{post?.text}"</title>
+                <title>{(post as any)?.username} on Twitter: "{(post as any)?.text!}"</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
