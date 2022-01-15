@@ -1,12 +1,12 @@
 import { SparklesIcon } from "@heroicons/react/outline";
-import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
+import { collection, onSnapshot, orderBy, query, QueryDocumentSnapshot, DocumentData } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "../../firebase";
 import Input from "../Input/Input";
 import Post from "../Post/Post";
 
 export default function Feed() {
-    const [posts, setPosts] = useState<[]>([]);
+    const [posts, setPosts] = useState<QueryDocumentSnapshot<DocumentData>[]>([]);
 
     // MESSY
     // useEffect(() => {
@@ -50,9 +50,9 @@ export default function Feed() {
             <Input />
 
             <div className="">
-                {/* {posts.map(post => (
+                {posts.map(post => (
                     <Post key={post.id} id={post.id} post={post.data()} />
-                ))} */}
+                ))}
             </div>
         </div>
     )

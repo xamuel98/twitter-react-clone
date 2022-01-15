@@ -7,7 +7,6 @@ import {
     query,
     setDoc,
     QueryDocumentSnapshot,
-    CollectionReference, 
     DocumentData
 } from "@firebase/firestore";
 import { 
@@ -32,7 +31,7 @@ import { modalState, postIdState } from "../../atoms/modalAtom";
 import { db } from "../../firebase";
 
 interface PostData {
-    id?: string | number,
+    id?: any,
     post?: any,
     postPage?: any
 }

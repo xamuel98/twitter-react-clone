@@ -27,7 +27,7 @@ function PostPage({ trendingResults, followingResults, providers }: any) {
 
     const {data: session} = useSession();
     const [isOpen, setIsOpen] = useRecoilState<boolean>(modalState);
-    const [post, setPost] = useState<any>();
+    const [post, setPost] = useState();
     const [comments, setComments] = useState<QueryDocumentSnapshot<DocumentData>[]>([]);
     const router = useRouter();
     const { id } = router.query;
