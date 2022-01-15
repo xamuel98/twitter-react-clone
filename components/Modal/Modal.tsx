@@ -42,9 +42,9 @@ function Modal() {
 
         await addDoc(collection(db, "posts", postId, "comments"), {
             comment: comment,
-            username: session.user.name,
-            tag: session.user.tag,
-            userImg: session.user.image,
+            username: (session as any)?.user?.name,
+            tag: (session as any)?.user?.tag,
+            userImg: (session as any)?.user?.image,
             timestamp: serverTimestamp(),
         });
 
@@ -119,7 +119,7 @@ function Modal() {
 
                                     <div className="mt-7 flex space-x-3 w-full">
                                         <img 
-                                            src={session.user.image} 
+                                            src={(session as any)?.user?.image} 
                                             alt="" 
                                             className="h-11 w-11 rounded-full"
                                         />
@@ -154,7 +154,7 @@ function Modal() {
                                                     className="bg-[#1d9bf0] text-white rounded-full px-4 py-1.5 font-bold shadow-md hover:bg-[#1a8cd8] disabled:hover:bg-[#1d9bf0] disabled:opacity-50 disabled:cursor-default"
                                                     type="submit"
                                                     onClick={sendComment}
-                                                    disabled={!comment!.trim()}
+                                                    disabled={!(comment as any).trim()}
                                                 >
                                                     Reply
                                                 </button>
