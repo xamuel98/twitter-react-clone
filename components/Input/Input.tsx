@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState, useRef, ChangeEvent } from "react";
+import { useState, useRef, ChangeEvent, RefObject } from "react";
 
 import { CalendarIcon, ChartBarIcon, EmojiHappyIcon, PhotographIcon, XIcon, } from "@heroicons/react/outline";
 
@@ -22,14 +22,14 @@ export default function Input() {
 
     const {data: session} = useSession();
 
-    const profileUrl: string | undefined = session?.user.image!;
+    const profileUrl: string | undefined = (session as any)?.user.image!;
 
     const [input, setInput] = useState("");
     const [selectedFile, setSelectedFile] = useState<any>(null);
     const [showEmojis, setShowEmojis] = useState(false);
     const [loading, setLoading] = useState(false);
 
-    const filePickerRef = useRef<HTMLInputElement>(null);
+    const filePickerRef: RefObject<HTMLInputElement> = useRef(null);
 
     // Add Image to post
     const addImageToPost = (e: ChangeEvent<HTMLInputElement>) => {
@@ -67,10 +67,10 @@ export default function Input() {
         setLoading(true);
 
         const docRef = await addDoc(collection(db, 'posts'), {
-            id: session.user.uid,
-            username: session.user.name,
-            userImg: session.user.image,
-            tag: session.user.tag,
+            id: (session as any)?.user?.uid!,
+            username: (session as any)?.user?.name!,
+            userImg: (session as any)?.user?.image!,
+            tag: (session as any)?.user?.tag!,
             text: input,
             timestamp: serverTimestamp()
         }) 
@@ -128,7 +128,7 @@ export default function Input() {
                 {!loading && (
                     <div className="flex items-center justify-between pt-2.5">
                         <div className="flex items-center">
-                            <div className="icon" onClick={() => filePickerRef.current.click()}>
+                            <div className="icon" onClick={() => (filePickerRef as any).current.click()}>
                                 <PhotographIcon className="h-[22px] text-[#1d9bf0]" />
                                 <input 
                                     accept='image/*'
