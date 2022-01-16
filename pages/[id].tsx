@@ -26,6 +26,7 @@ import Comment from "../components/Comment/Comment";
 import Head from "next/head";
 import Login from "../components/Login";
 import Widgets from '../components/Widgets/Widgets';
+// import { Firestore } from "firebase/firestore";
 
 function PostPage({ trendingResults, followingResults, providers }: any) {
 
@@ -34,11 +35,11 @@ function PostPage({ trendingResults, followingResults, providers }: any) {
     const [post, setPost] = useState<any>();
     const [comments, setComments] = useState<QueryDocumentSnapshot<DocumentData>[]>([]);
     const router = useRouter();
-    const { id } = router.query;
-
+    const { id }: any = router.query;
+    const dataBase: any = db;
     useEffect(
         () => 
-            onSnapshot(doc(db, "posts", id) as DocumentReference<DocumentData>, (snapshot: any) =>  {
+            onSnapshot(doc(dataBase, "/posts", id) as DocumentReference<DocumentData>, (snapshot: any) =>  {
                 setPost(snapshot.data());
             }),
         [db]
