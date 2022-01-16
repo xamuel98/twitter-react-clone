@@ -5,6 +5,8 @@ import {
     orderBy,
     query,
     QueryDocumentSnapshot,
+    QuerySnapshot,
+    Query,
     DocumentReference,
     CollectionReference,
     DocumentData
@@ -29,14 +31,14 @@ function PostPage({ trendingResults, followingResults, providers }: any) {
 
     const {data: session} = useSession();
     const [isOpen, setIsOpen] = useRecoilState<boolean>(modalState);
-    const [post, setPost] = useState();
+    const [post, setPost] = useState<any>();
     const [comments, setComments] = useState<QueryDocumentSnapshot<DocumentData>[]>([]);
     const router = useRouter();
     const { id } = router.query;
 
     useEffect(
         () => 
-            onSnapshot(doc(db, "posts", id), (snapshot: QueryDocumentSnapshot<any>) =>  {
+            onSnapshot(doc(db, "posts", id) as DocumentReference<DocumentData>, (snapshot: any) =>  {
                 setPost(snapshot.data());
             }),
         [db]
@@ -45,14 +47,14 @@ function PostPage({ trendingResults, followingResults, providers }: any) {
     useEffect(
         () =>
           onSnapshot(
-            query(
-              collection(db, "posts", id, "comments"),
-              orderBy("timestamp", "desc")
-            ),
-            (snapshot) => setComments(snapshot.docs)
+            query(collection(db, "posts", id, "comments") as CollectionReference<DocumentData> , orderBy("timestamp", "desc")),
+            (snapshot: any) => {
+                setComments(snapshot.docs)
+            }
         ),
         [db, id]
     );
+
 
     if (!session) return <Login providers={providers} />;
     

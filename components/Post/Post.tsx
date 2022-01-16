@@ -7,7 +7,7 @@ import {
     query,
     setDoc,
     QueryDocumentSnapshot,
-    CollectionReference,
+    DocumentReference,
     DocumentData
 } from "@firebase/firestore";
 import { 
@@ -39,7 +39,7 @@ interface PostData {
 
 function Post({id, post, postPage}: PostData) {
     const {data: session} = useSession();
-    const profileUID: string | undefined = (session as any)?.user?.uid!;
+    const profileUID = (session as any)?.user?.uid!;
     const [postId, setPostId ] = useRecoilState<any>(postIdState);
     const [isOpen, setIsOpen] = useRecoilState<boolean>(modalState);
     const [comments, setComments] = useState<QueryDocumentSnapshot<DocumentData>[]>([]);
@@ -80,7 +80,7 @@ function Post({id, post, postPage}: PostData) {
             await deleteDoc(doc(db, "posts", id, "likes", profileUID));
         } else {
             await setDoc(doc(db, "posts", id, "likes", profileUID), {
-                username: session?.user?.name!
+                username: (session as any)?.user?.name!
             });
         }
     };
