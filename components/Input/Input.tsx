@@ -22,7 +22,7 @@ export default function Input() {
 
     const {data: session} = useSession();
 
-    const profileUrl: string | undefined = (session as any)?.user.image!;
+    const profileUrl = (session as any)?.user.image!;
 
     const [input, setInput] = useState("");
     const [selectedFile, setSelectedFile] = useState<any>(null);

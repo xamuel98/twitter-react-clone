@@ -10,14 +10,14 @@ export default NextAuth({
     // Configure one or more authentication providers
     providers: [
         GoogleProvider<AuthProviderOptions>({
-            clientId: process.env.GOOGLE_CLIENT_ID,
-            clientSecret: process.env.GOOGLE_CLIENT_SECRET
+            clientId: process.env.GOOGLE_CLIENT_ID as any,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET as any
         }),
         // ...add more providers here
     ],
     callbacks: {
         async session({ session, token }: any) {
-            session.user.tag = session.user.name.split(" ").join("").toLocaleLowerCase();
+            session.user.tag = (session as any).user.name.split(" ").join("").toLocaleLowerCase();
             session.user.uid = token.sub;
             
             return session; // The return type will match the one returned in `useSession()`

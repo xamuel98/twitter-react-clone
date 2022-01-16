@@ -60,9 +60,9 @@ const sidebarLinkItems = [
 export default function Sidebar() {
     const { data: session } = useSession();
 
-    const profileUrl: string | undefined = session?.user.image!;
-    const profileName: string | undefined = session?.user.name!;
-    const profileTag: string | undefined = session?.user.tag!;
+    const profileUrl = (session as any)?.user.image!;
+    const profileName = (session as any)?.user.name!;
+    const profileTag = (session as any)?.user.tag!;
 
 
     return (
@@ -84,7 +84,7 @@ export default function Sidebar() {
                 Tweet
             </button>
             <div className="text-[#d9d9d9] flex items-center justify-center hoverAnimation xl:ml-auto xl:-mr-5 mt-auto"
-                onClick={signOut}    
+                onClick={() => signOut}    
             >
                 <img 
                     src={profileUrl}

@@ -34,20 +34,29 @@ function PostPage({ trendingResults, followingResults, providers }: any) {
     const [post, setPost] = useState<any>();
     const [comments, setComments] = useState<QueryDocumentSnapshot<DocumentData>[]>([]);
     const router = useRouter();
-    const { id } = router.query;
+    const { id }: any = router.query;
+    const dataBase: any = db;
 
     useEffect(
         () => 
-            onSnapshot(doc(db, "posts", id) as DocumentReference<DocumentData>, (snapshot: any) =>  {
+            onSnapshot(doc(dataBase, "posts", id) as DocumentReference<DocumentData>, (snapshot: any) =>  {
                 setPost(snapshot.data());
             }),
         [db]
     );
 
+    // useEffect(
+    //     () => 
+    //         onSnapshot(doc(db, "posts", id), (snapshot: any) =>  {
+    //             setPost(snapshot.data());
+    //         }),
+    //     [db]
+    // );
+
     useEffect(
         () =>
           onSnapshot(
-            query(collection(db, "posts", id, "comments") as CollectionReference<DocumentData> , orderBy("timestamp", "desc")),
+            query(collection(dataBase, "posts", id, "comments") as CollectionReference<DocumentData> , orderBy("timestamp", "desc")),
             (snapshot: any) => {
                 setComments(snapshot.docs)
             }
@@ -55,8 +64,19 @@ function PostPage({ trendingResults, followingResults, providers }: any) {
         [db, id]
     );
 
+    // useEffect(
+    //     () =>
+    //       onSnapshot(
+    //         query(collection(db, "posts", id, "comments"), orderBy("timestamp", "desc")),
+    //         (snapshot: any) => {
+    //             setComments(snapshot.docs)
+    //         }
+    //     ),
+    //     [db, id]
+    // );
 
-    if (!session) return <Login providers={providers} />;
+
+    if (!(session as any)) return <Login providers={providers} />;
     
 
     return (
@@ -116,7 +136,7 @@ export async function getServerSideProps(context: any) {
     );
   
     const providers = await getProviders();
-    const session = await getSession(context);
+    const session: any = await getSession(context);
   
     return {
         props: {

@@ -14,7 +14,7 @@ export default function Home({ trendingResults, followingResults, providers }: a
     const { data: session } = useSession();
     const [isOpen, setIsOpen] = useRecoilState<boolean>(modalState);
 
-    if (!session) {
+    if (!(session as any)) {
         return (
             <>
                 <Login providers={providers} />;
@@ -33,7 +33,7 @@ export default function Home({ trendingResults, followingResults, providers }: a
             <main className="bg-black min-h-screen flex max-w-[1500px] mx-auto">
                 <Sidebar />
                 <Feed />
-                {session?.user?.name}
+                {(session as any)?.user?.name}
                 
                 <Widgets
                     trendingResults={trendingResults}
@@ -56,7 +56,7 @@ export async function getServerSideProps(context: any) {
     );
   
     const providers = await getProviders();
-    const session = await getSession(context);
+    const session: any = await getSession(context);
   
     return {
         props: {
