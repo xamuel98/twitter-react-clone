@@ -1,7 +1,7 @@
 const env = {
     GOOGLE_CLIENT_ID: '195905970161-6bisotgjmrfhtu14lr7bjeftnjap684g.apps.googleusercontent.com',
     GOOGLE_CLIENT_SECRET:'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',
-    NEXTAUTH_URL:'http://localhost:3000',
+    NEXTAUTH_URL:'https://affectionate-bose-f4cf50.netlify.app/',
     NEXT_PUBLIC_FIREBASE_API_KEY : 'AIzaSyCQy1wZA9G-lROa24R0lNnvQ5lXYKVcV5g',
     NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN : 'twitter-clone-34b2d.firebaseapp.com',
     NEXT_PUBLIC_FIREBASE_PROJECT_ID : 'twitter-clone-34b2d',
