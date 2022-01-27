@@ -1,3 +1,5 @@
+import env from '../../../configenv';
+
 interface AuthProviderOptions {
     clientId?: any,
     clientSecret?: string
@@ -10,8 +12,8 @@ export default NextAuth({
     // Configure one or more authentication providers
     providers: [
         GoogleProvider<AuthProviderOptions>({
-            clientId: process.env.GOOGLE_CLIENT_ID as any,
-            clientSecret: process.env.GOOGLE_CLIENT_SECRET as any
+            clientId: env.GOOGLE_CLIENT_ID as any,
+            clientSecret: env.GOOGLE_CLIENT_SECRET as any
         }),
         // ...add more providers here
     ],
@@ -23,6 +25,5 @@ export default NextAuth({
             return session; // The return type will match the one returned in `useSession()`
         },
     },
-
-    secret: process.env.JWT_SECRET as any,
+    secret: env.JWT_SECRET as any,
 })
